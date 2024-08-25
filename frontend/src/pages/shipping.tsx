@@ -293,7 +293,7 @@ import { NewOrderRequest } from "../types/api-types";
 import { responseToast } from "../utils/features";
 
 const Shipping = () => {
-  const { cartItems, total, shippingInfo, subtotal, tax, discount, shippingCharges } = useSelector(
+  const { cartItems, total,subtotal, tax, discount, shippingCharges } = useSelector(
     (state: RootState) => state.cartReducer
   );
 
