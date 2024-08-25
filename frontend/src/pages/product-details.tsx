@@ -42,7 +42,10 @@ const ProductDetails = () => {
   const [createReview] = useNewReviewMutation();
   const [deleteReview] = useDeleteReviewMutation();
 
-  const decrement = () => setQuantity((prev) => prev - 1);
+  const decrement = () => setQuantity((prev) => {
+    if (prev > 1) return prev - 1;
+    return prev;
+  });
   const increment = () => {
     if (data?.product?.stock === quantity)
       return toast.error(`${data?.product?.stock} available only`);
