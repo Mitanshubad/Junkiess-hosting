@@ -91,7 +91,7 @@ import { User } from "../types/types";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import toast from "react-hot-toast";
-
+import logo from "../assets/images/logojunkiess.jpg"
 interface PropsType {
   user: User | null;
 }
@@ -115,7 +115,7 @@ const Header = ({ user }: PropsType) => {
       <div className="flex items-center">
         <Link to="/" className="flex items-center ml-8">
           <img
-            src="https://www.linkedin.com/dms/prv/vid/v2/D5606AQEALk96m45jkg/messaging-attachmentFile/messaging-attachmentFile/0/1724440108957?m=AQJErCbnUarlhAAAAZGAo-z0Q98c7vHBWJJ6wl6iN9uQO9jKNQC1bMtEmA&ne=1&v=beta&t=GcrsBw2hlhsgNr_eKxuOJx4pFtG88zW3bAvfQ6lxOGQ"
+             src={logo}
             alt="e"
             className="h-24 mix-blend-multiply object-contain rotate-90"
           />
