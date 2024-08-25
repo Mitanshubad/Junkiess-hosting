@@ -84,7 +84,7 @@ import {
   FaSignInAlt,
   FaUser,
   FaSignOutAlt,
-  FaHome,
+ 
 } from "react-icons/fa";
 import { useState } from "react";
 import { User } from "../types/types";
