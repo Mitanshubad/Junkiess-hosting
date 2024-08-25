@@ -40,10 +40,8 @@ const app = express();
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors({
-  origin: 'http://localhost:5173',  // Allow your frontend origin
-  credentials: true,               // Allow cookies or credentials to be sent
-}));
+app.use(cors());
+              // Allow cookies or credentials to be sent));
 
 app.get("/", (req, res) => {
   res.send("API Working with /api/v1");
