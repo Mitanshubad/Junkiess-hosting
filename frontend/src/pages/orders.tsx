@@ -114,18 +114,18 @@ import { RootState } from "../redux/store";
 import { CustomError } from "../types/api-types";
 
 type DataType = {
-  _id: string;
+  productName: ReactElement; // Updated type to include productName as ReactElement
   amount: number;
   quantity: number;
   discount: number;
   status: ReactElement;
-  action: ReactElement | null; // Update type to include null
+  action: ReactElement | null;
 };
 
 const column: Column<DataType>[] = [
   {
-    Header: "ID",
-    accessor: "_id",
+    Header: "Product Name", // Updated header to Product Name
+    accessor: "productName", // Updated accessor to productName
   },
   {
     Header: "Quantity",
@@ -162,31 +162,48 @@ const Orders = () => {
   }
 
   useEffect(() => {
-    if (data)
+    if (data) {
       setRows(
-        data.orders.map((i) => ({
-          _id: i._id,
-          amount: i.total,
-          discount: i.discount,
-          quantity: i.orderItems.length,
-          status: (
-            <span
-              className={
-                i.status === "Processing"
-                  ? "red"
-                  : i.status === "Shipped"
-                  ? "green"
-                  : "purple"
-              }
-            >
-              {i.status}
-            </span>
-          ),
-          action: user?.role === "admin" ? (
-            <Link to={`/admin/transaction/${i._id}`}>Manage</Link>
-          ) : null, // Conditionally render Manage button
-        }))
+        data.orders.map((order) => {
+          const firstItem = order.orderItems[0]; // Assuming displaying the first product name is sufficient
+          return {
+            productName: (
+              <Link
+                to={`/product/${firstItem?.productId}`}
+               
+              >
+                {firstItem?.name}
+              </Link>
+            ),
+            amount: order.total,
+            discount: order.discount,
+            quantity: order.orderItems.length,
+            status: (
+              <span
+                className={
+                  order.status === "Processing"
+                    ? "text-red-500"
+                    : order.status === "Shipped"
+                    ? "text-green-500"
+                    : "text-purple-500"
+                }
+              >
+                {order.status}
+              </span>
+            ),
+            action:
+              user?.role === "admin" ? (
+                <Link
+                  to={`/admin/transaction/${order._id}`}
+                  // Tailwind CSS classes added here
+                >
+                  Manage
+                </Link>
+              ) : null,
+          };
+        })
       );
+    }
   }, [data, user]);
 
   const Table = TableHOC<DataType>(
@@ -196,10 +213,10 @@ const Orders = () => {
     "Orders",
     rows.length > 6
   )();
-  
+
   return (
-    <div className="container">
-      <h1>My Orders</h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">My Orders</h1>
       {isLoading ? <Skeleton length={20} /> : Table}
     </div>
   );
